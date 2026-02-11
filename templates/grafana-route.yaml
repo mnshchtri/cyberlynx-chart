@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-grafana-route
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+spec:
+  parentRefs:
+  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  hostnames:
+  - {{ .Values.hostnames.grafana | quote }}
+  rules:
+  - backendRefs:
+    - name: prometheus-grafana # Assuming this remains external or user provides it
+      port: 80

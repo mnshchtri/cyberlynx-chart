@@ -1,0 +1,44 @@
+# From cyberlynx-app.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-frontend
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+    app: frontend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "cyberlynx.selectorLabels" . | nindent 6 }}
+      app: frontend
+  template:
+    metadata:
+      labels:
+        {{- include "cyberlynx.selectorLabels" . | nindent 8 }}
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+        command: ["/bin/sh", "-c"]
+        args: ["sleep 5 && ./entrypoint.sh frontend"]
+        ports:
+        - containerPort: {{ .Values.frontend.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-frontend
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "cyberlynx.selectorLabels" . | nindent 4 }}
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.frontend.port }}
+      targetPort: {{ .Values.frontend.port }}

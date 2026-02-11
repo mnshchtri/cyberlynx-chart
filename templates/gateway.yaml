@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-gateway
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+spec:
+  gatewayClassName: {{ .Values.gateway.class | default "nginx" }}
+  listeners:
+  - name: http
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: All

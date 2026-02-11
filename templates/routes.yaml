@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-route
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+spec:
+  parentRefs:
+  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  hostnames:
+  - {{ .Values.hostnames.app | quote }}
+  rules:
+  - matches:
+    - path: { type: PathPrefix, value: /api }
+    backendRefs:
+    - name: {{ include "cyberlynx.fullname" . }}-backend
+      port: {{ .Values.backend.port }}
+  - matches:
+    - path: { type: PathPrefix, value: / }
+    backendRefs:
+    - name: {{ include "cyberlynx.fullname" . }}-frontend
+      port: {{ .Values.frontend.port }}

@@ -1,0 +1,25 @@
+# Staging overrides
+replicaCount: 1
+
+hostnames:
+  # Unique hostname for staging application testing
+  app: "app-staging.cyberlynx.citytech"
+  # Unique hostname for staging monitoring access
+  grafana: "grafana-staging.cyberlynx.citytech"
+  # Unique hostname for staging ArgoCD access
+  argocd: "argocd-staging.cyberlynx.citytech"
+
+backend:
+  image:
+    tag: v1-staging
+  replicaCount: 1
+
+frontend:
+  image:
+    tag: v1-staging
+
+# Secrets for staging environment
+secrets:
+  mongoUri: "bW9uZ29kYitzcnY6Ly9hZG1pbjpjeWJlcmx5bnhAY2x1c3RlcjAuYm4yYzF3bC5tb25nb2RiLm5ldC8/YXBwTmFtZT1DbHVzdGVyMA=="
+  jwtSecret: "c3V0YWdpbmctc2VjcmV0LWtleS00NTY="
+  geminiApiKey: "QUl6YVN5Qy1OekNDdV9yWmhQbTFiN0J4OTI1c3BncXVBMDBDRlZn"

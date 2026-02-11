@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-backend
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+    app: backend
+spec:
+  replicas: {{ .Values.backend.replicaCount | default .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "cyberlynx.selectorLabels" . | nindent 6 }}
+      app: backend
+  template:
+    metadata:
+      labels:
+        {{- include "cyberlynx.selectorLabels" . | nindent 8 }}
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+        args: ["backend"]
+        ports:
+        - containerPort: {{ .Values.backend.port }}
+        envFrom:
+        - secretRef:
+            name: {{ include "cyberlynx.fullname" . }}-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.backend.port }}
+      targetPort: {{ .Values.backend.port }}

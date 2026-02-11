@@ -1,0 +1,28 @@
+# UAT overrides
+# UAT specific overrides
+# Increased from 1 to 3 for load testing and high availability
+replicaCount: 3 
+
+hostnames:
+  # Unique hostname for UAT application testing
+  app: "app-uat.cyberlynx.citytech"
+  # Unique hostname for UAT monitoring access
+  grafana: "grafana-uat.cyberlynx.citytech"
+  # Unique hostname for UAT ArgoCD access
+  argocd: "argocd-uat.cyberlynx.citytech"
+
+backend:
+  # You might use a more stable image tag for UAT
+  image:
+    tag: v1-stable 
+  replicaCount: 2 # Override for UAT specifically
+
+frontend:
+  image:
+    tag: v1-stable
+
+# Secrets for UAT environment (could point to a different DB if needed)
+secrets:
+  mongoUri: "bW9uZ29kYitzcnY6Ly9hZG1pbjpjeWJlcmx5bnhAY2x1c3RlcjAuYm4yYzF3bC5tb25nb2RiLm5ldC8/YXBwTmFtZT1DbHVzdGVyMA=="
+  jwtSecret: "Yy11YXQtc2VjcmV0LWtleS03ODk="
+  geminiApiKey: "QUl6YVN5Qy1OekNDdV9yWmhQbTFiN0J4OTI1c3BncXVBMDBDRlZn"
