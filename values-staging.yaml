@@ -11,12 +11,12 @@ hostnames:
 
 backend:
   image:
-    tag: v1
+    tag: latest
   replicaCount: 1
 
 frontend:
   image:
-    tag: v1
+    tag: latest
 
 # Secrets for staging environment
 secrets:
