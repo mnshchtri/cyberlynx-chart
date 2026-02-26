@@ -4,14 +4,14 @@ replicaCount: 1
 backend:
   image:
     repository: mnshchtri/cyber-lynx
-    tag: v1 # Jenkins will update this automatically
+    tag: latest # Jenkins will update this automatically
     pullPolicy: Always
   port: 8080
 
 frontend:
   image:
     repository: mnshchtri/cyber-lynx
-    tag: v1
+    tag: latest
     pullPolicy: Always
   port: 80
 
