@@ -17,7 +17,8 @@ frontend:
 
 gateway:
   enabled: true
-  name: cyberlynx-gateway # Specific override if needed, though templates will use fullname by default
+  name: cyberlynx-gateway
+  namespace: default # All env routes attach to this single shared Gateway
   class: nginx
 
 # Domains for HTTPRoutes

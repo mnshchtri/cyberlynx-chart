@@ -8,7 +8,7 @@ metadata:
 spec:
   parentRefs:
   - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
-    namespace: {{ .Release.Namespace }}
+    namespace: {{ .Values.gateway.namespace | default "default" }}
   hostnames:
   - {{ .Values.hostnames.argocd | quote }}
   rules:
