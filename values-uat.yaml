@@ -1,7 +1,7 @@
 # UAT overrides
 # UAT specific overrides
 # Increased from 1 to 3 for load testing and high availability
-replicaCount: 3 
+replicaCount: 1
 
 hostnames:
   # Unique hostname for UAT application testing
@@ -14,8 +14,8 @@ hostnames:
 backend:
   # You might use a more stable image tag for UAT
   image:
-    tag: latest 
-  replicaCount: 2 # Override for UAT specifically
+    tag: latest
+  replicaCount: 0 # Override for UAT specifically
 
 frontend:
   image:
