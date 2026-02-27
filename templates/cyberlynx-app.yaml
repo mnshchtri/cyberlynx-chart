@@ -1,0 +1,116 @@
+# Backend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-backend
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+    app: backend
+spec:
+  replicas: {{ .Values.backend.replicaCount | default .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "cyberlynx.selectorLabels" . | nindent 6 }}
+      app: backend
+  template:
+    metadata:
+      labels:
+        {{- include "cyberlynx.selectorLabels" . | nindent 8 }}
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+        args: ["backend"]
+        ports:
+        - containerPort: {{ .Values.backend.port }}
+        envFrom:
+        - secretRef:
+            name: {{ include "cyberlynx.fullname" . }}-secrets
+---
+# Backend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-backend
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "cyberlynx.selectorLabels" . | nindent 4 }}
+    app: backend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.backend.port }}
+      targetPort: {{ .Values.backend.port }}
+---
+# Frontend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-frontend
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+    app: frontend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "cyberlynx.selectorLabels" . | nindent 6 }}
+      app: frontend
+  template:
+    metadata:
+      labels:
+        {{- include "cyberlynx.selectorLabels" . | nindent 8 }}
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+        command: ["/bin/sh", "-c"]
+        args: ["sleep 5 && ./entrypoint.sh frontend"]
+        ports:
+        - containerPort: {{ .Values.frontend.port }}
+---
+# Frontend Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-frontend
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "cyberlynx.selectorLabels" . | nindent 4 }}
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.frontend.port }}
+      targetPort: {{ .Values.frontend.port }}
+---
+# HTTP Route
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "cyberlynx.fullname" . }}-route
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
+spec:
+  parentRefs:
+  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  hostnames:
+  - {{ .Values.hostnames.app | quote }}
+  rules:
+  - matches:
+    - path: { type: PathPrefix, value: /api }
+    backendRefs:
+    - name: {{ include "cyberlynx.fullname" . }}-backend
+      port: {{ .Values.backend.port }}
+  - matches:
+    - path: { type: PathPrefix, value: / }
+    backendRefs:
+    - name: {{ include "cyberlynx.fullname" . }}-frontend
+      port: {{ .Values.frontend.port }}
