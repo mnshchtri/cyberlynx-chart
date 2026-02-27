@@ -1,0 +1,17 @@
+# This ReferenceGrant must live in the 'argocd' namespace.
+# It permits an HTTPRoute in the 'default' namespace to reference
+# the 'argocd-server' Service in this namespace.
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-default-to-argocd
+  namespace: argocd
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: default
+  to:
+    - group: ""
+      kind: Service
+      name: argocd-server

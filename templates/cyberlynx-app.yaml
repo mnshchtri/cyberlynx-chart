@@ -102,6 +102,7 @@ metadata:
 spec:
   parentRefs:
   - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
+    namespace: {{ .Release.Namespace }}
   hostnames:
   - {{ .Values.hostnames.app | quote }}
   rules:

@@ -1,4 +1,7 @@
 # UAT overrides
+
+gateway:
+  enabled: false # UAT shares the Gateway managed by the prod release
 replicaCount: 1
 
 # --- FIX 1: Ensure Backend is actually running ---

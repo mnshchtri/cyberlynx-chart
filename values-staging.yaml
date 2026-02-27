@@ -1,4 +1,7 @@
 # Staging overrides
+
+gateway:
+  enabled: false # Staging shares the Gateway managed by the prod release
 replicaCount: 2 # Increased for staging to better simulate production load
 
 # --- Backend Configuration ---
