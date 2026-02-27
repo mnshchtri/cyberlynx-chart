@@ -8,13 +8,13 @@ backend:
   fullnameOverride: "cyber-lynx-backend"
   replicaCount: 2
   image:
-    tag: staging-latest # Highly recommended to use a 'staging' specific tag
+    tag: latest # Highly recommended to use a 'staging' specific tag
 
 # --- Frontend Configuration ---
 frontend:
   fullnameOverride: "cyber-lynx-frontend"
   image:
-    tag: staging-latest
+    tag: latest
 
 hostnames:
   # Updated hostnames for Staging environment
