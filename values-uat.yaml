@@ -1,27 +1,25 @@
 # UAT overrides
-# UAT specific overrides
-# Increased from 1 to 3 for load testing and high availability
 replicaCount: 1
 
+# --- FIX 1: Ensure Backend is actually running ---
+backend:
+  fullnameOverride: "cyber-lynx-backend" # FIX: Matches Nginx upstream name
+  replicaCount: 1 # CHANGED: Was 0, must be at least 1
+  image:
+    tag: latest
+
+# --- FIX 2: Ensure Frontend naming matches ---
+frontend:
+  fullnameOverride: "cyber-lynx-frontend"
+  image:
+    tag: latest
+
 hostnames:
-  # Unique hostname for UAT application testing
   app: "app-uat.cyberlynx.citytech"
-  # Unique hostname for UAT monitoring access
   grafana: "grafana-uat.cyberlynx.citytech"
-  # Unique hostname for UAT ArgoCD access
   argocd: "argocd-uat.cyberlynx.citytech"
 
-backend:
-  # You might use a more stable image tag for UAT
-  image:
-    tag: latest
-  replicaCount: 0 # Override for UAT specifically
-
-frontend:
-  image:
-    tag: latest
-
-# Secrets for UAT environment (could point to a different DB if needed)
+# Secrets (Kept from your previous file)
 secrets:
   mongoUri: "bW9uZ29kYitzcnY6Ly9hZG1pbjpjeWJlcmx5bnhAY2x1c3RlcjAuYm4yYzF3bC5tb25nb2RiLm5ldC8/YXBwTmFtZT1DbHVzdGVyMA=="
   jwtSecret: "Yy11YXQtc2VjcmV0LWtleS03ODk="

@@ -1,25 +1,30 @@
 # Staging overrides
-replicaCount: 1
+replicaCount: 2 # Increased for staging to better simulate production load
+
+# --- Backend Configuration ---
+backend:
+  # KEEP THIS as "cyber-lynx-backend" if your Nginx config is hardcoded to it
+  # OR change it if your Nginx config uses a variable for the backend host
+  fullnameOverride: "cyber-lynx-backend"
+  replicaCount: 2
+  image:
+    tag: staging-latest # Highly recommended to use a 'staging' specific tag
+
+# --- Frontend Configuration ---
+frontend:
+  fullnameOverride: "cyber-lynx-frontend"
+  image:
+    tag: staging-latest
 
 hostnames:
-  # Unique hostname for staging application testing
+  # Updated hostnames for Staging environment
   app: "app-staging.cyberlynx.citytech"
-  # Unique hostname for staging monitoring access
   grafana: "grafana-staging.cyberlynx.citytech"
-  # Unique hostname for staging ArgoCD access
   argocd: "argocd-staging.cyberlynx.citytech"
 
-backend:
-  image:
-    tag: latest
-  replicaCount: 1
-
-frontend:
-  image:
-    tag: latest
-
-# Secrets for staging environment
+# Secrets for Staging (Ideally different from UAT for security)
 secrets:
+  # Using staging-specific JWT secret (Base64 encoded)
   mongoUri: "bW9uZ29kYitzcnY6Ly9hZG1pbjpjeWJlcmx5bnhAY2x1c3RlcjAuYm4yYzF3bC5tb25nb2RiLm5ldC8/YXBwTmFtZT1DbHVzdGVyMA=="
-  jwtSecret: "c3V0YWdpbmctc2VjcmV0LWtleS00NTY="
+  jwtSecret: "cy1zdGFnaW5nLXNlY3JldC1rZXktNDU2"
   geminiApiKey: "QUl6YVN5Qy1OekNDdV9yWmhQbTFiN0J4OTI1c3BncXVBMDBDRlZn"
