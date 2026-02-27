@@ -100,7 +100,7 @@ metadata:
     {{- include "cyberlynx.labels" . | nindent 4 }}
 spec:
   parentRefs:
-  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
   hostnames:
   - {{ .Values.hostnames.app | quote }}
   rules:
