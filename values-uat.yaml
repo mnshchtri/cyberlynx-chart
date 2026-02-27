@@ -1,6 +1,12 @@
 # UAT overrides
 replicaCount: 1
 
+gateway:
+  enabled: false
+
+ingress:
+  enabled: true
+
 # --- FIX 1: Ensure Backend is actually running ---
 backend:
   fullnameOverride: "cyber-lynx-backend" # FIX: Matches Nginx upstream name

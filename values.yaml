@@ -16,8 +16,14 @@ frontend:
   port: 80
 
 gateway:
+  enabled: true
   name: cyberlynx-gateway
   class: nginx
+
+ingress:
+  enabled: false
+  className: nginx
+  annotations: {}
 
 # Domains for HTTPRoutes
 hostnames:

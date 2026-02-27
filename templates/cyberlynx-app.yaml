@@ -92,6 +92,7 @@ spec:
       targetPort: {{ .Values.frontend.port }}
 ---
 # HTTP Route
+{{- if .Values.gateway.enabled }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -100,7 +101,7 @@ metadata:
     {{- include "cyberlynx.labels" . | nindent 4 }}
 spec:
   parentRefs:
-  - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
+  - name: {{ .Values.gateway.name | default (printf "%s-gateway" (include "cyberlynx.fullname" .)) }}
   hostnames:
   - {{ .Values.hostnames.app | quote }}
   rules:
@@ -114,3 +115,4 @@ spec:
     backendRefs:
     - name: {{ .Values.frontend.fullnameOverride | default (printf "%s-frontend" (include "cyberlynx.fullname" .)) }}
       port: {{ .Values.frontend.port }}
+{{- end }}

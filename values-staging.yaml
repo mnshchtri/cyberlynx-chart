@@ -1,6 +1,12 @@
 # Staging overrides
 replicaCount: 2 # Increased for staging to better simulate production load
 
+gateway:
+  enabled: false
+
+ingress:
+  enabled: true
+
 # --- Backend Configuration ---
 backend:
   # KEEP THIS as "cyber-lynx-backend" if your Nginx config is hardcoded to it

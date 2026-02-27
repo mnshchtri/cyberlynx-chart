@@ -1,3 +1,4 @@
+{{- if .Values.gateway.enabled }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -6,10 +7,11 @@ metadata:
     {{- include "cyberlynx.labels" . | nindent 4 }}
 spec:
   parentRefs:
-  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  - name: {{ .Values.gateway.name | default (printf "%s-gateway" (include "cyberlynx.fullname" .)) }}
   hostnames:
   - {{ .Values.hostnames.grafana | quote }}
   rules:
   - backendRefs:
     - name: prometheus-grafana # Assuming this remains external or user provides it
       port: 80
+{{- end }}
