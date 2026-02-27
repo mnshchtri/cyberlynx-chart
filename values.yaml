@@ -17,13 +17,8 @@ frontend:
 
 gateway:
   enabled: true
-  name: cyberlynx-gateway
+  name: cyberlynx-gateway # Specific override if needed, though templates will use fullname by default
   class: nginx
-
-ingress:
-  enabled: false
-  className: nginx
-  annotations: {}
 
 # Domains for HTTPRoutes
 hostnames:
