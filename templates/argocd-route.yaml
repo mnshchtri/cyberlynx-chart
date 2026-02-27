@@ -7,7 +7,7 @@ metadata:
     {{- include "cyberlynx.labels" . | nindent 4 }}
 spec:
   parentRefs:
-  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
   hostnames:
   - {{ .Values.hostnames.argocd | quote }}
   rules:
@@ -15,4 +15,5 @@ spec:
     - name: argocd-server
       namespace: argocd
       port: 80
+      kind: Service
 {{- end }}

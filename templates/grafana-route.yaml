@@ -7,11 +7,12 @@ metadata:
     {{- include "cyberlynx.labels" . | nindent 4 }}
 spec:
   parentRefs:
-  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
   hostnames:
   - {{ .Values.hostnames.grafana | quote }}
   rules:
   - backendRefs:
-    - name: prometheus-grafana # Assuming this remains external or user provides it
+    - name: prometheus-grafana
       port: 80
+      kind: Service
 {{- end }}

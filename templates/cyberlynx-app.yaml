@@ -101,7 +101,7 @@ metadata:
     {{- include "cyberlynx.labels" . | nindent 4 }}
 spec:
   parentRefs:
-  - name: {{ include "cyberlynx.fullname" . }}-gateway
+  - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
   hostnames:
   - {{ .Values.hostnames.app | quote }}
   rules:
@@ -110,9 +110,11 @@ spec:
     backendRefs:
     - name: {{ .Values.backend.fullnameOverride | default (printf "%s-backend" (include "cyberlynx.fullname" .)) }}
       port: {{ .Values.backend.port }}
+      kind: Service
   - matches:
     - path: { type: PathPrefix, value: / }
     backendRefs:
     - name: {{ .Values.frontend.fullnameOverride | default (printf "%s-frontend" (include "cyberlynx.fullname" .)) }}
       port: {{ .Values.frontend.port }}
+      kind: Service
 {{- end }}
