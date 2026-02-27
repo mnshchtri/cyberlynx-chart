@@ -3,7 +3,8 @@ kind: Gateway
 metadata:
   name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
   namespace: {{ .Release.Namespace | default "default" }}
-  labels: {{- include "cyberlynx.labels" . | nindent 4 }}
+  labels:
+    {{- include "cyberlynx.labels" . | nindent 4 }}
 spec:
   gatewayClassName: {{ .Values.gateway.class | default "nginx" }}
   listeners:
