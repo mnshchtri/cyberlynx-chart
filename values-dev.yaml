@@ -1,0 +1,21 @@
+# Dev environment overrides
+# Dev deploys to the 'default' namespace alongside the shared gateway
+# gateway.enabled: false prevents dev from creating its own Gateway,
+# ReferenceGrant (argocd ns) and Grafana route (monitoring ns),
+# which the 'dev' ArgoCD project does not have permission to touch.
+
+gateway:
+  enabled: false
+
+hostnames:
+  app: "app-dev.cyberlynx.citytech"
+  grafana: "grafana-dev.cyberlynx.citytech"
+  argocd: "argocd-dev.cyberlynx.citytech"
+
+backend:
+  image:
+    tag: latest
+
+frontend:
+  image:
+    tag: latest
