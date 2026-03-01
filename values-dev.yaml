@@ -4,8 +4,6 @@
 
 gateway:
   enabled: false # Dev shares the shared Gateway in the 'default' namespace
-  name: cyberlynx-gateway
-  namespace: default
   class: nginx
   crossNamespaceRoutes:
     enabled: false # Dev ArgoCD project can't manage monitoring/argocd namespaces
