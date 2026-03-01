@@ -16,12 +16,10 @@ hostnames:
   # argocd route is prod-only (http://argocd.cyberlynx.citytech/)
 
 backend:
-  fullnameOverride: "cyber-lynx-backend"
   image:
     tag: latest
 
 frontend:
-  fullnameOverride: "cyber-lynx-frontend"
   image:
     tag: latest
 

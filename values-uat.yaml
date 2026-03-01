@@ -8,14 +8,12 @@ replicaCount: 1
 
 # --- FIX 1: Ensure Backend is actually running ---
 backend:
-  fullnameOverride: "cyber-lynx-backend" # FIX: Matches Nginx upstream name
   replicaCount: 1 # CHANGED: Was 0, must be at least 1
   image:
     tag: latest
 
 # --- FIX 2: Ensure Frontend naming matches ---
 frontend:
-  fullnameOverride: "cyber-lynx-frontend"
   image:
     tag: latest
 

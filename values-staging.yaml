@@ -8,16 +8,12 @@ replicaCount: 2 # Increased for staging to better simulate production load
 
 # --- Backend Configuration ---
 backend:
-  # KEEP THIS as "cyber-lynx-backend" if your Nginx config is hardcoded to it
-  # OR change it if your Nginx config uses a variable for the backend host
-  fullnameOverride: "cyber-lynx-backend"
   replicaCount: 2
   image:
-    tag: latest # Highly recommended to use a 'staging' specific tag
+    tag: latest
 
 # --- Frontend Configuration ---
 frontend:
-  fullnameOverride: "cyber-lynx-frontend"
   image:
     tag: latest
 
