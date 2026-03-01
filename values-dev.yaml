@@ -3,9 +3,9 @@
 # The ArgoCD Application for dev must set destination.namespace: dev
 
 gateway:
-  enabled: true # Dev gets its own Gateway in the 'dev' namespace
-  name: cyberlynx-gateway-dev
-  namespace: dev # Gateway lives in the dev namespace
+  enabled: false # Dev shares the shared Gateway in the 'default' namespace
+  name: cyberlynx-gateway
+  namespace: default
   class: nginx
   crossNamespaceRoutes:
     enabled: false # Dev ArgoCD project can't manage monitoring/argocd namespaces
@@ -16,10 +16,12 @@ hostnames:
   # argocd route is prod-only (http://argocd.cyberlynx.citytech/)
 
 backend:
+  fullnameOverride: "cyber-lynx-backend"
   image:
     tag: latest
 
 frontend:
+  fullnameOverride: "cyber-lynx-frontend"
   image:
     tag: latest
 

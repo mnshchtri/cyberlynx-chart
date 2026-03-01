@@ -2,6 +2,7 @@
 replicaCount: 1
 
 backend:
+  fullnameOverride: "cyber-lynx-backend"
   image:
     repository: mnshchtri/cyber-lynx
     tag: latest # Jenkins will update this automatically
@@ -9,6 +10,7 @@ backend:
   port: 8080
 
 frontend:
+  fullnameOverride: "cyber-lynx-frontend"
   image:
     repository: mnshchtri/cyber-lynx
     tag: latest
