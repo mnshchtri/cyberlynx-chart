@@ -1,11 +1,14 @@
 # Dev environment overrides
-# Dev deploys to the 'default' namespace alongside the shared gateway
-# gateway.enabled: false prevents dev from creating its own Gateway,
-# ReferenceGrant (argocd ns) and Grafana route (monitoring ns),
-# which the 'dev' ArgoCD project does not have permission to touch.
+# Dev deploys to the 'dev' namespace with its own dedicated Gateway.
+# The ArgoCD Application for dev must set destination.namespace: dev
 
 gateway:
-  enabled: false
+  enabled: true # Dev gets its own Gateway in the 'dev' namespace
+  name: cyberlynx-gateway-dev
+  namespace: dev # Gateway lives in the dev namespace
+  class: nginx
+  crossNamespaceRoutes:
+    enabled: false # Dev ArgoCD project can't manage monitoring/argocd namespaces
 
 hostnames:
   app: "app-dev.cyberlynx.citytech"
@@ -19,3 +22,9 @@ backend:
 frontend:
   image:
     tag: latest
+
+# Secrets for Dev environment
+secrets:
+  mongoUri: "bW9uZ29kYitzcnY6Ly9hZG1pbjpjeWJlcmx5bnhAY2x1c3RlcjAuYm4yYzF3bC5tb25nb2RiLm5ldC8/YXBwTmFtZT1DbHVzdGVyMA=="
+  jwtSecret: "ZGV2LXNlY3JldC1rZXktMTIz"
+  geminiApiKey: "QUl6YVN5Qy1OekNDdV9yWmhQbTFiN0J4OTI1c3BncXVBMDBDRlZn"

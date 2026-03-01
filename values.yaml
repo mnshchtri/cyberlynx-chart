@@ -20,6 +20,8 @@ gateway:
   name: cyberlynx-gateway
   namespace: default # All env routes attach to this single shared Gateway
   class: nginx
+  crossNamespaceRoutes:
+    enabled: true # Only prod deploys grafana/argocd routes and ReferenceGrant
 
 # Domains for HTTPRoutes
 hostnames:
