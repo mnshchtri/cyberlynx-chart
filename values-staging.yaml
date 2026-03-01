@@ -2,6 +2,8 @@
 
 gateway:
   enabled: false # Staging shares the Gateway managed by the prod release
+  crossNamespaceRoutes:
+    enabled: false # ArgoCD/Grafana cross-ns routes are prod-only
 replicaCount: 2 # Increased for staging to better simulate production load
 
 # --- Backend Configuration ---
@@ -23,7 +25,7 @@ hostnames:
   # Updated hostnames for Staging environment
   app: "app-staging.cyberlynx.citytech"
   grafana: "grafana-staging.cyberlynx.citytech"
-  argocd: "argocd-staging.cyberlynx.citytech"
+  # argocd route is prod-only (http://argocd.cyberlynx.citytech/)
 
 # Secrets for Staging (Ideally different from UAT for security)
 secrets:

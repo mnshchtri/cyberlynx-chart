@@ -2,6 +2,8 @@
 
 gateway:
   enabled: false # UAT shares the Gateway managed by the prod release
+  crossNamespaceRoutes:
+    enabled: false # ArgoCD/Grafana cross-ns routes are prod-only
 replicaCount: 1
 
 # --- FIX 1: Ensure Backend is actually running ---
@@ -20,7 +22,7 @@ frontend:
 hostnames:
   app: "app-uat.cyberlynx.citytech"
   grafana: "grafana-uat.cyberlynx.citytech"
-  argocd: "argocd-uat.cyberlynx.citytech"
+  # argocd route is prod-only (http://argocd.cyberlynx.citytech/)
 
 # Secrets (Kept from your previous file)
 secrets:

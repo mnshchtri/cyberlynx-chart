@@ -13,7 +13,7 @@ gateway:
 hostnames:
   app: "app-dev.cyberlynx.citytech"
   grafana: "grafana-dev.cyberlynx.citytech"
-  argocd: "argocd-dev.cyberlynx.citytech"
+  # argocd route is prod-only (http://argocd.cyberlynx.citytech/)
 
 backend:
   image:
