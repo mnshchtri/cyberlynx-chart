@@ -1,3 +1,4 @@
+{{- if .Values.gateway.enabled }}
 # This ReferenceGrant must live in the 'argocd' namespace.
 # It permits an HTTPRoute in the 'default' namespace to reference
 # the 'argocd-server' Service in this namespace.
@@ -15,3 +16,5 @@ spec:
     - group: ""
       kind: Service
       name: argocd-server
+{{- end }}
+
