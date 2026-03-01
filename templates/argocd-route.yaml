@@ -10,7 +10,7 @@ spec:
   - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
     namespace: {{ .Values.gateway.namespace | default "default" }}
   hostnames:
-  - {{ .Values.hostnames.argocd | quote }}
+  - {{ .Values.gateway.crossNamespaceRoutes.hostnames.argocd | quote }}
   rules:
   - backendRefs:
     - name: argocd-server

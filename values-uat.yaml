@@ -19,8 +19,6 @@ frontend:
 
 hostnames:
   app: "app-uat.cyberlynx.citytech"
-  grafana: "grafana-uat.cyberlynx.citytech"
-  # argocd route is prod-only (http://argocd.cyberlynx.citytech/)
 
 # Secrets (Kept from your previous file)
 secrets:

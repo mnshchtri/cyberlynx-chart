@@ -24,12 +24,13 @@ gateway:
   class: nginx
   crossNamespaceRoutes:
     enabled: true # Only prod deploys grafana/argocd routes and ReferenceGrant
+    hostnames:
+      grafana: "grafana.cyberlynx.citytech"
+      argocd: "argocd.cyberlynx.citytech"
 
 # Domains for HTTPRoutes
 hostnames:
   app: "app.cyberlynx.citytech"
-  grafana: "grafana.cyberlynx.citytech"
-  argocd: "argocd.cyberlynx.citytech"
 
 # Sensitive data (to be encoded in templates)
 secrets:

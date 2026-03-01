@@ -11,7 +11,7 @@ spec:
   - name: {{ .Values.gateway.name | default "cyberlynx-gateway" }}
     namespace: {{ .Values.gateway.namespace | default "default" }}
   hostnames:
-  - {{ .Values.hostnames.grafana | quote }}
+  - {{ .Values.gateway.crossNamespaceRoutes.hostnames.grafana | quote }}
   rules:
   - backendRefs:
     - name: prometheus-grafana

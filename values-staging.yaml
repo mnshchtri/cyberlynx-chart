@@ -20,8 +20,6 @@ frontend:
 hostnames:
   # Updated hostnames for Staging environment
   app: "app-staging.cyberlynx.citytech"
-  grafana: "grafana-staging.cyberlynx.citytech"
-  # argocd route is prod-only (http://argocd.cyberlynx.citytech/)
 
 # Secrets for Staging (Ideally different from UAT for security)
 secrets:
