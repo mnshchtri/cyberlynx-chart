@@ -10,7 +10,7 @@ replicaCount: 2 # Increased for staging to better simulate production load
 backend:
   replicaCount: 2
   image:
-    tag: latest
+    tag: v0.1.0.52
 
 # --- Frontend Configuration ---
 frontend:
