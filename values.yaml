@@ -5,7 +5,7 @@ backend:
   fullnameOverride: "cyber-lynx-backend"
   image:
     repository: mnshchtri/cyberlynx
-    tag: latest # Jenkins will update this automatically
+    tag: v0.1.0.51 # Jenkins will update this automatically
     pullPolicy: Always
   port: 8080
 
@@ -13,7 +13,7 @@ frontend:
   fullnameOverride: "cyber-lynx-frontend"
   image:
     repository: mnshchtri/cyberlynx
-    tag: latest
+    tag: v0.1.0.51
     pullPolicy: Always
   port: 80
 

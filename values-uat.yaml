@@ -10,12 +10,12 @@ replicaCount: 1
 backend:
   replicaCount: 1 # CHANGED: Was 0, must be at least 1
   image:
-    tag: v0.1.0.52
+    tag: v0.1.0.51
 
 # --- FIX 2: Ensure Frontend naming matches ---
 frontend:
   image:
-    tag: latest
+    tag: v0.1.0.51
 
 hostnames:
   app: "app-uat.cyberlynx.citytech"
