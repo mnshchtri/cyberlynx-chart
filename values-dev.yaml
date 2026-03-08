@@ -13,11 +13,11 @@ hostnames:
 
 backend:
   image:
-    tag: "v0.1.0.53"
+    tag: "v0.1.0.56"
 
 frontend:
   image:
-    tag: "v0.1.0.53"
+    tag: "v0.1.0.56"
 
 # Secrets for Dev environment
 secrets:
